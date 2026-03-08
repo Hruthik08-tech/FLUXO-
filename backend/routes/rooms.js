@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const pool = require('../connections/db');
@@ -260,7 +259,7 @@ router.patch('/:id/status', async (req, res) => {
                      ?, 'deal', ?, NOW())`,
             [
               targetOrgId,
-              `Deal for ${roomData.supply_name_snapshot || roomData.demand_name_snapshot || 'a listing'} has been successfully finalized. QR code is available.`,
+              `Deal for ${roomData.supply_name_snapshot || roomData.demand_name_snapshot || 'a listing'} has been successfully finalized. ${qrCodePath}`,
               dealResult.insertId
             ]
           );

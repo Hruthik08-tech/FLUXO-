@@ -1,7 +1,21 @@
-
 const express = require('express');
 const router = express.Router();
 const pool = require('../connections/db');
+const { exec } = require('child_process');
+
+// Replace QR code generation logic
+const generateQRCode = async (qrData) => {
+  return new Promise((resolve, reject) => {
+    exec(`python ./barcode/qr_code.py ${qrData}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error generating QR code: ${stderr}`);
+        return reject(error);
+      }
+      console.log(`QR Code generated: ${stdout}`);
+      resolve(stdout.trim());
+    });
+  });
+};
 
 // ═══════════════════════════════════════════════════════════════
 // GET /api/deals — List all deals for the org
